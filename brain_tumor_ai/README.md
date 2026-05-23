@@ -1,230 +1,334 @@
-🧠 Multi-Modal Brain Tumor Analysis System
+# 🧠 Multi-Modal Brain Tumor Analysis System
 
-An advanced deep learning project for analyzing brain MRI scans using multiple imaging modalities (T1, T2, and FLAIR). The system performs tumor segmentation, tumor classification, growth risk estimation, and AI-assisted clinical explanation.
+An advanced AI-powered medical imaging system for **brain tumor segmentation and analysis** using **multi-modal MRI scans** and **3D deep learning**.
 
-🚀 Features
-🧠 3D Tumor Segmentation using 3D U-Net and Attention U-Net
-🏷️ Tumor Type Classification using a Vision Transformer (ViT)
-📈 Growth Risk Prediction based on extracted radiomic features
-🤖 AI Clinical Explanation in natural language
-🖼️ Multi-Modal MRI Support
-T1
-T2
-FLAIR
-💾 Support for real BraTS dataset (.nii.gz files)
-🏗️ System Pipeline
-T1 + T2 + FLAIR MRI
-          │
-          ▼m 
-   Preprocessing
-(normalization + resizing)
-          │
-          ▼
-   3D U-Net / Attention U-Net
-          │
-          ▼
-   Tumor Segmentation Mask
-          │
-          ▼
-   Feature Extraction
-          │
-          ▼
- Vision Transformer (ViT)
-          │
-          ▼
- Tumor Classification
-          │
-          ▼
- Risk Prediction
-          │
-          ▼
- AI Clinical Report
-🧪 Supported Tumor Types
-Glioblastoma (GBM)
-Astrocytoma
-Meningioma
-Other / Benign
-📊 Output
+This project uses a custom **3D U-Net architecture** trained on the **BraTS (Brain Tumor Segmentation) Dataset** to automatically identify and segment tumor regions from MRI scans.
 
-The system produces:
+---
 
-Tumor segmentation mask
-Tumor type prediction
-Risk score (0–100)
-AI-generated clinical summary
-📁 Project Structure
+# 🚀 Features
+
+✅ Multi-modal MRI processing  
+✅ 3D Brain Tumor Segmentation  
+✅ Deep Learning using PyTorch  
+✅ MRI Visualization & Overlay Generation  
+✅ Automated Inference Pipeline  
+✅ Dice Loss Optimization  
+✅ NIfTI (.nii.gz) MRI Support  
+✅ Professional Segmentation Overlay Outputs  
+
+---
+
+# 🧠 MRI Modalities Used
+
+| Modality | Purpose |
+|---|---|
+| T1 | Brain anatomy |
+| T2 | Fluid & edema |
+| FLAIR | Tumor visibility |
+
+The system combines all three modalities to improve segmentation performance.
+
+---
+
+# 🏗️ Project Architecture
+
+```text
+MRI Scans (T1 + T2 + FLAIR)
+            ↓
+      Preprocessing
+            ↓
+      3D U-Net Model
+            ↓
+    Tumor Segmentation
+            ↓
+   Visualization & Overlay
+```
+
+---
+
+# 📂 Project Structure
+
+```text
 Multi-Modal Brain Tumor Analysis System/
-├── brain_tumor_ai/
-│   ├── main.py
-│   ├── requirements.txt
-│   └── venv/
+│
+├── checkpoints/              # Training checkpoints
 │
 ├── data/
+│   ├── dataset.py            # Dataset loader
+│   └── BraTS2024/            # BraTS dataset
+│
+├── inference/
 │   ├── __init__.py
-│   ├── dataset.py
-│   └── BraTS2024/
-│       └── ASNR-MICCAI-BraTS2023-GLI-Challenge-TrainingData/
-│           ├── BraTS-GLI-00000-000/
-│           ├── BraTS-GLI-00001-000/
-│           └── ...
+│   └── predict.py            # Inference pipeline
 │
 ├── models/
 │   ├── __init__.py
-│   ├── unet3d.py
+│   ├── unet3d.py             # 3D U-Net model
 │   ├── attention_unet.py
 │   └── classifier.py
+│
+├── outputs/                  # Prediction outputs
+│
+├── test_sample/              # Sample MRI scans
 │
 ├── training/
 │   ├── __init__.py
 │   ├── train_segmentation.py
 │   └── train_classifier.py
 │
-├── inference/
-│   ├── __init__.py
-│   └── predict.py
-│
 ├── utils/
 │   ├── __init__.py
 │   ├── loss.py
 │   └── metrices.py
 │
-├── checkpoints/
-├── outputs/
 ├── weights/
-├── .gitignore
-└── README.md
-🗂️ Dataset
+│   ├── unet3d.pth
+│   └── classifier.pth
+│
+├── README.md
+└── requirements.txt
+```
 
-This project uses the Brain Tumor Segmentation Challenge dataset.
+---
 
-Download
+# 📦 Dataset Used
 
-BraTS Challenge Website
+## BraTS Dataset
 
-Expected Dataset Structure
+This project uses the **BraTS (Brain Tumor Segmentation Challenge)** dataset.
+
+Dataset contains:
+- Multi-modal MRI scans
+- Ground truth tumor masks
+- Glioma cases
+
+---
+
+# 📥 Download Dataset
+
+Register and download:
+
+- BraTS Dataset:  
+  https://www.synapse.org/
+
+After downloading:
+
+```text
 data/
 └── BraTS2024/
     └── ASNR-MICCAI-BraTS2023-GLI-Challenge-TrainingData/
-        ├── BraTS-GLI-00000-000/
-        │   ├── BraTS-GLI-00000-000-t1n.nii.gz
-        │   ├── BraTS-GLI-00000-000-t2w.nii.gz
-        │   ├── BraTS-GLI-00000-000-t2f.nii.gz
-        │   └── BraTS-GLI-00000-000-seg.nii.gz
-        └── ...
-⚙️ Installation
-1. Clone the Repository
-git clone <your-repository-url>
-cd "Multi-Modal Brain Tumor Analysis System"
-2. Create Virtual Environment
-python -m venv brain_tumor_ai/venv
-3. Activate Virtual Environment
-Windows PowerShell
-brain_tumor_ai\venv\Scripts\activate
-Linux / macOS
-source brain_tumor_ai/venv/bin/activate
-4. Install Dependencies
-pip install -r brain_tumor_ai/requirements.txt
-📦 Required Packages
-torch
-torchvision
-nibabel
-monai
-numpy
-scikit-learn
-matplotlib
-opencv-python
-tqdm
-🏋️ Training
-Train Segmentation Model
+```
+
+---
+
+# ⚙️ Installation
+
+## 1. Clone Repository
+
+```bash
+git clone https://github.com/your-username/brain-tumor-analysis-system.git
+cd brain-tumor-analysis-system
+```
+
+---
+
+## 2. Create Virtual Environment
+
+### Windows
+
+```powershell
+python -m venv venv
+venv\Scripts\activate
+```
+
+### Linux / Mac
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+---
+
+## 3. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+# 🏋️ Training the Model
+
+Run segmentation training:
+
+```bash
 python -m training.train_segmentation
-Train Classification Model
-python -m training.train_classifier
-💾 Saved Models
+```
 
-During training:
+Trained weights will be saved inside:
 
-checkpoints/unet3d_epoch_1.pth
-checkpoints/unet3d_epoch_2.pth
-...
+```text
+checkpoints/
+```
 
-Final model:
+Copy final trained models to:
 
-unet3d.pth
+```text
+weights/
+```
 
-Recommended location for deployment:
+Example:
 
-weights/unet3d.pth
-weights/classifier.pth
-🔍 Inference
+```text
+weights/
+├── unet3d.pth
+└── classifier.pth
+```
 
-Run prediction on trained models:
+---
 
+# 🧪 Running Inference
+
+## Add Test MRI Scans
+
+Place sample patient folders inside:
+
+```text
+test_sample/
+```
+
+Example:
+
+```text
+test_sample/
+├── BraTS-GLI-00000-000/
+├── BraTS-GLI-00001-000/
+└── BraTS-GLI-00002-000/
+```
+
+---
+
+## Run Prediction
+
+```bash
 python -m inference.predict
+```
 
-Outputs will be saved in:
+The system will:
+- load trained weights
+- preprocess MRI scans
+- generate tumor masks
+- create visualization overlays
+- save outputs
 
+---
+
+# 📊 Output Example
+
+The output includes:
+
+✅ Original MRI  
+✅ Predicted Tumor Mask  
+✅ Tumor Overlay Visualization  
+
+Saved in:
+
+```text
 outputs/
-📈 Evaluation Metrics
-Segmentation Metrics
-Dice Score
-Hausdorff Distance
-Sensitivity
-Specificity
-Classification Metrics
-Accuracy
-Precision
-Recall
-F1 Score
-🧠 Models Used
-3D U-Net
+```
 
-Primary model for volumetric tumor segmentation.
+---
 
-Attention U-Net
+# 🧠 Deep Learning Details
 
-Improves segmentation by focusing on relevant regions.
+## Model Used
 
-Vision Transformer (ViT)
+### 3D U-Net
 
-Classifies tumor type from extracted features.
+The architecture consists of:
+- Encoder
+- Bottleneck
+- Decoder
+- Skip Connections
 
-Risk Predictor
+---
 
-Estimates tumor aggressiveness using radiomic features.
+## Loss Function
 
-🛠️ Technologies Used
-PyTorch
-MONAI
-NumPy
-Nibabel
-OpenCV
-Visual Studio Code
-🎯 Future Enhancements
-FastAPI backend for REST API deployment
-React frontend for interactive visualization
-DICOM support
-PDF clinical report generation
-Docker deployment
-Cloud integration with AWS
-🧑‍💻 Author
+Dice Loss is used for segmentation optimization.
+
+```text
+Dice = 2TP / (2TP + FP + FN)
+```
+
+---
+
+# 🛠️ Technologies Used
+
+| Technology | Purpose |
+|---|---|
+| Python | Core programming |
+| PyTorch | Deep learning |
+| NumPy | Numerical computation |
+| Nibabel | MRI loading |
+| Matplotlib | Visualization |
+| tqdm | Training progress |
+
+---
+
+# ⚠️ Challenges Faced
+
+- MRI preprocessing
+- Large 3D data handling
+- Tensor dimension mismatches
+- CPU memory limitations
+- Segmentation quality optimization
+
+---
+
+# 🚀 Future Improvements
+
+- Attention U-Net
+- Vision Transformer (ViT)
+- Multi-class tumor segmentation
+- FastAPI backend
+- React frontend
+- PDF medical report generation
+- Grad-CAM explainability
+- MONAI framework integration
+
+---
+
+# 📈 Results
+
+The model successfully:
+- loads multi-modal MRI scans
+- performs tumor segmentation
+- generates overlay visualizations
+- predicts tumor regions automatically
+
+---
+
+# 🎯 Learning Outcomes
+
+Through this project I learned:
+- Medical image processing
+- 3D deep learning
+- MRI preprocessing
+- Segmentation architectures
+- PyTorch model training
+- Inference pipeline development
+
+---
+
+# 👨‍💻 Author
 
 Your Name
 
-📜 License
+---
 
-This project is licensed under the MIT License.
+# 📜 License
 
-⭐ Acknowledgements
-MICCAI
-ASNR
-Brain Tumor Segmentation Challenge
-PyTorch Foundation
-📌 Quick Start
-git clone <your-repository-url>
-cd "Multi-Modal Brain Tumor Analysis System"
-python -m venv brain_tumor_ai/venv
-brain_tumor_ai\venv\Scripts\activate
-pip install -r brain_tumor_ai/requirements.txt
-python -m training.train_segmentation
-python -m training.train_classifier
-python -m inference.predict
+This project is for educational and research purposes.
