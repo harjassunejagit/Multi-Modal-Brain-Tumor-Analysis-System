@@ -1,7 +1,7 @@
+weights/
+outputs/
+test_sample/
+*.pth
+*.nii.gz
 venv/
-brain_tumor_ai/venv/
 __pycache__/
-*.pyc
-checkpoints/
-data/BraTS2024/
-.env

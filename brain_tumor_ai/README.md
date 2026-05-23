@@ -15,7 +15,7 @@ FLAIR
 🏗️ System Pipeline
 T1 + T2 + FLAIR MRI
           │
-          ▼
+          ▼m 
    Preprocessing
 (normalization + resizing)
           │

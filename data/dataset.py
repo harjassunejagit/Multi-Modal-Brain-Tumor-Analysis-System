@@ -10,7 +10,7 @@ class BrainMRIDataset(Dataset):
     def __init__(
         self,
         root_dir="data/BraTS2024",
-        target_size=(64, 64, 64)
+        target_size=(128,128,128)
     ):
         self.root_dir = root_dir
         self.target_size = target_size
