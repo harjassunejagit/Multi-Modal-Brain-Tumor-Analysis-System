@@ -149,30 +149,82 @@ print("Inference completed.")
 
 
 # =========================
-# Save outputs
+# Professional Visualization
 # =========================
+
 os.makedirs("outputs", exist_ok=True)
 
+# Get middle slice
 middle_slice = prediction.shape[0] // 2
 
-plt.figure(figsize=(10, 5))
+# MRI slice
+mri_slice = flair[middle_slice]
 
-# FLAIR slice
-plt.subplot(1, 2, 1)
-plt.imshow(flair[middle_slice], cmap="gray")
-plt.title("FLAIR MRI Slice")
+# Predicted mask slice
+mask_slice = prediction[middle_slice]
+
+# Create figure
+plt.figure(figsize=(15, 5))
+
+# -------------------------
+# Original MRI
+# -------------------------
+plt.subplot(1, 3, 1)
+
+plt.imshow(
+    mri_slice,
+    cmap="gray"
+)
+
+plt.title("Original FLAIR MRI")
 plt.axis("off")
 
-# Predicted mask
-plt.subplot(1, 2, 2)
-plt.imshow(prediction[middle_slice], cmap="hot")
+# -------------------------
+# Predicted Mask
+# -------------------------
+plt.subplot(1, 3, 2)
+
+plt.imshow(
+    mask_slice,
+    cmap="hot"
+)
+
 plt.title("Predicted Tumor Mask")
 plt.axis("off")
 
-output_path = "outputs/prediction.png"
+# -------------------------
+# Overlay Visualization
+# -------------------------
+plt.subplot(1, 3, 3)
 
-plt.savefig(output_path)
+# MRI background
+plt.imshow(
+    mri_slice,
+    cmap="gray"
+)
 
-print(f"Prediction saved at: {output_path}")
+# Transparent tumor overlay
+plt.imshow(
+    mask_slice,
+    cmap="Reds",
+    alpha=0.45
+)
+
+plt.title("Tumor Overlay")
+plt.axis("off")
+
+# Save figure
+output_path = "outputs/prediction_overlay.png"
+
+plt.tight_layout()
+
+plt.savefig(
+    output_path,
+    bbox_inches="tight",
+    dpi=300
+)
+
+print(f"\nOverlay visualization saved at:")
+print(output_path)
 
 plt.show()
